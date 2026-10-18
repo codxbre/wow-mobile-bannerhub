@@ -59,6 +59,49 @@ While a game is running you should see a **"Game running"** notification. That i
 keep-alive service. Leaving it running is what keeps WoW connected when you switch to
 another app or open BannerHub's own menus.
 
+## If nothing works: Termux + opencode
+
+If you've tried the fixes above and the game still won't run, you can let an AI agent
+diagnose it on the phone.
+
+1. Install **Termux** from [F-Droid](https://f-droid.org/packages/com.termux/) or the
+   [GitHub releases](https://github.com/termux/termux-app/releases) — **not** the Play Store
+   version (it is outdated).
+2. Open Termux and run:
+
+   ```sh
+   pkg update -y && pkg upgrade -y
+   pkg install -y curl git
+   curl -fsSL https://opencode.ai/install | bash
+   opencode
+   ```
+
+3. In opencode, run `/connect` and pick a provider with a free tier (for example
+   **Google** with a free API key from Google AI Studio, or **OpenRouter** free models).
+   Paste the key, then run `/models` and choose a model marked **free**.
+4. Paste this prompt (fill in the brackets):
+
+   ```text
+   I'm on Android (Termux) trying to run World of Warcraft 3.3.5a (Warmane) through
+   BannerHub v3.8.1 Normal (modified APK from
+   https://github.com/codxbre/wow-mobile-bannerhub).
+
+   My device: [phone model, Android version, GPU].
+   Problem: [game won't start / black screen with sound / disconnects in background / other].
+   What I already tried: [GPU Driver = System Driver, Config.wtf windowed 1280x720,
+   installed the background APK, battery = No restrictions].
+
+   Please:
+   1. Find and read my logs (logcat, wine.log, f7f8-debug.log) under
+      /storage/emulated/0 and /data/data/com.termux/files/home.
+   2. Diagnose the actual cause.
+   3. Fix it step by step. If the APK needs patching, build a new one in the cloud
+      (e.g. GitHub Actions) and put it in /storage/emulated/0/Download.
+   4. If you need more information, ask me.
+   ```
+
+5. Follow its steps and try the game again.
+
 ## Credits
 
 - **BannerHub** — [The412Banner](https://github.com/The412Banner/bannerhub)
